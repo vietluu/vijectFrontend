@@ -1,0 +1,24 @@
+
+
+#root {
+ width: 100%;
+ height: auto;
+}
+.auth{
+  background-image: url('/img/bg1.svg'), url('/img/bg2.svg');
+  background-repeat: no-repeat no-repeat;
+  background-position: left bottom, right bottom;
+  background-attachment: fixed, fixed;
+  background-size: 368px, 368px;
+}
+@media screen and (max-width: 768px) {
+  .auth{
+  background: none;
+  }
+  
+}
+.ant-input, .ant-input-affix-wrapper, .ant-input-affix-wrapper-lg, .ant-input-affix-wrapper-sm, .ant-input-lg, .ant-input-search, .ant-input-search-lg, .ant-input-search-sm, .ant-input-sm, .ant-input-lg, .ant-input-sm, .ant-input {
+  border-radius: 0 !important;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
