@@ -1,15 +1,19 @@
 export type user = {
-    _id: readonly string,
-    fullName: string,
-    email: string,
-    image: string,
+    _id: readonly string
+    fullName: string
+    email: string
+    image: string
 }
 export type userLogin = {
-    email: string,
-    password: string,
+    email: string
+    password: string
 }
 export type userRegister = {
-    fullName: string,
-    email: string,
-    password: string,
+    fullName: string
+    email: string
+    password: string
+}
+export type pswUpdate = {
+    oldPassword: string
+    newPassword: string
 }

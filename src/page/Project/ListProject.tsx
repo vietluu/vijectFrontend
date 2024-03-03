@@ -10,7 +10,6 @@ import { projectSelector } from '../../redux/project/selector'
 import { NavLink } from 'react-router-dom'
 import ButtonCustom from '../../component/ButtonCustom'
 import type { TabsProps } from 'antd/lib'
-import dayjs from 'dayjs'
 
 const item: TabsProps['items'] = [
     {
@@ -30,7 +29,7 @@ const item: TabsProps['items'] = [
         label: 'Hoàn thành',
     },
 ]
-function Dashbroad() {
+function ListProject() {
     const dispatch = useAppDispatch()
     const [form] = Form.useForm()
     const [openModal, setOpenModal] = useState(false)
@@ -99,14 +98,9 @@ function Dashbroad() {
             <div className="px-4">
                 <div className="flex flex-row items-center px-3 pt-4 pb-2 justify-between">
                     <h3 className="font-bold text-xl">Dự án gần đây</h3>
-                    <NavLink to="/projectList" className="text-blue-500">
-                        Xem tất cả
-                    </NavLink>
                 </div>
-                {project
-                    ?.toReversed()
-                    .slice(0, 5)
-                    .map((item, index) => {
+                <div className="flex flex-wrap flex-row gap-2">
+                    {project?.map((item, index) => {
                         return (
                             <NavLink
                                 to={`/${item._id}`}
@@ -137,10 +131,11 @@ function Dashbroad() {
                             </NavLink>
                         )
                     })}
+                </div>
                 <Tabs items={item} className="mt-4 px-3" />
             </div>
         </>
     )
 }
 
-export default Dashbroad
+export default ListProject

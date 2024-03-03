@@ -1,11 +1,11 @@
-import { user } from "./user";
+import { user } from './user'
 
 export type Project = {
-    _id: string;
-    projectName: string;
-    description: string;
-    createdAt: string;
-    updatedAt: string;
-    creator: user;
-    members: user[];
-    };
+    _id: readonly string
+    projectName: string
+    description: string
+    createdAt: string
+    updatedAt: string
+    creator_id: string
+    members: user[]
+}

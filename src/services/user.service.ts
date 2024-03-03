@@ -7,29 +7,55 @@ export const getUser = (): AxiosPromise<type.user> => {
         method: 'get',
         url: '/auth/user',
     }
-    return instance(request);
+    return instance(request)
 }
-export const login = (data: type.userLogin): AxiosPromise<{token:string}> => { 
+export const login = (
+    data: type.userLogin
+): AxiosPromise<{ token: string }> => {
     const request: AxiosRequestConfig = {
         method: 'post',
         url: '/auth/signIn',
         data,
     }
-    return instance(request);   
+    return instance(request)
 }
-export const register = (data: type.userRegister): AxiosPromise<{token:string}> => {
+export const register = (
+    data: type.userRegister
+): AxiosPromise<{ token: string }> => {
     const request: AxiosRequestConfig = {
         method: 'post',
         url: '/auth/signUp',
         data,
     }
-    return instance(request);
+    return instance(request)
 }
-export const updateProfile = (data: Partial<type.user>): AxiosPromise<type.user> => {
+export const updateProfile = (
+    data: Partial<type.user>
+): AxiosPromise<type.user> => {
     const request: AxiosRequestConfig = {
         method: 'patch',
         url: '/auth/user',
         data,
     }
-    return instance(request);
+    return instance(request)
+}
+
+export const getUserByEmail = (params: {
+    email: string
+}): AxiosPromise<type.user[]> => {
+    const request: AxiosRequestConfig = {
+        method: 'get',
+        url: '/auth/user/find',
+        params,
+    }
+    return instance(request)
+}
+
+export const changePassword = (data: type.pswUpdate): AxiosPromise<type.user> => {
+    const request: AxiosRequestConfig = {
+        method: 'patch',
+        url: '/auth/user/password',
+        data,
+    }
+    return instance(request)
 }
