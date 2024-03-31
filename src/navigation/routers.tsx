@@ -7,10 +7,12 @@ import Profile from '../page/Profile'
 import ProjectDetail from '../page/Project'
 import UpdatePsw from '../page/Profile/UpdatePsw'
 import Member from '../page/Project/Member'
-import Task from '../page/Project/Task'
-import Label from '../page/Project/Label'
+import Task from '../page/Project/task/index'
+import Label from '../page/Project/label/Label'
 import Setting from '../page/Project/Setting'
 import ListProject from '../page/Project/ListProject'
+import Sumary from '../page/Project/Sumary'
+import TaskDetail from '../page/Project/task/TaskDetail'
 
 type routeItem = {
     path: string
@@ -70,9 +72,19 @@ export const routes: Route = {
                 element: <Label />,
             },
             {
+                path: 'sumary',
+                id: 'project-sumary',
+                element: <Sumary />,
+            },
+            {
                 path: 'setting',
                 id: 'project-setting',
                 element: <Setting />,
+            },
+            {
+                path: ':taskId',
+                id: 'project-task-create',
+                element: <TaskDetail/>,
             },
         ],
     },

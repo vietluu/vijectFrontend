@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hook/hook'
 import { Form, Input, Modal, message, Tabs } from 'antd'
 import { Project } from '../../types/project'
@@ -11,30 +11,19 @@ import { NavLink } from 'react-router-dom'
 import ButtonCustom from '../../component/ButtonCustom'
 import type { TabsProps } from 'antd/lib'
 import dayjs from 'dayjs'
+import ItemTab from './ItemTab'
+import { userSelector } from '../../redux/user/selector'
+import { getAllTasks } from '../../redux/user/thunk'
 
-const item: TabsProps['items'] = [
-    {
-        key: '1',
-        label: 'Công việc đã tạo',
-    },
-    {
-        key: '2',
-        label: 'Công việc được giao',
-    },
-    {
-        key: '3',
-        label: 'Đang thực hiện',
-    },
-    {
-        key: '4',
-        label: 'Hoàn thành',
-    },
-]
+
 function Dashbroad() {
     const dispatch = useAppDispatch()
     const [form] = Form.useForm()
     const [openModal, setOpenModal] = useState(false)
     const { loading, project } = useAppSelector(projectSelector)
+    const { userTask } = useAppSelector(userSelector)
+
+
     const handleCreateProject = (values: Partial<Project>) => {
         dispatch(createProjectRequest(values)).then((res) => {
             if (res.type === 'project/thunk/createProject/fulfilled') {
@@ -44,15 +33,46 @@ function Dashbroad() {
             } else message.error('Tạo dự án thất bại')
         })
     }
+    useLayoutEffect(() => {
+        dispatch(getAllTasks())
+
+        }, [dispatch])
+    const item: TabsProps['items'] = [
+        {
+            key: '1',
+            label: <span>Công việc đã tạo <span className=' inline-block px-1 rounded-full bg-red-500 text-white '>{userTask?.created.length}</span></span>,
+            children: <ItemTab data={userTask?.created} />
+
+        },
+        {
+            key: '2',
+            label: <span>Công việc được giao <span className=' inline-block px-1 rounded-full bg-red-500 text-white '>{userTask?.assigned.length}</span></span>,
+            children: <ItemTab data={userTask?.assigned} />
+        },
+        {
+            key: '3',
+            label: <span>Công việc đang thực hiện <span className=' inline-block px-1 rounded-full bg-red-500 text-white '>{userTask?.doing.length}</span></span>,
+            children: <ItemTab data={userTask?.doing} />
+        },
+        {
+            key: '4',
+            label: <span>Công việc đã hoàn thành <span className=' inline-block px-1 rounded-full bg-red-500 text-white '>{userTask?.completed.length}</span></span>,
+            children: <ItemTab data={userTask?.done} />
+        },
+    ]
+
     return (
         <>
             <Modal
                 title="Tạo dự án"
                 open={openModal}
+                centered
                 onCancel={() => setOpenModal(false)}
                 onOk={() => {
                     form.submit()
                 }}
+                okText="Tạo"
+                cancelText="Hủy"
                 okButtonProps={{ className: 'bg-sky-500 text-white' }}
             >
                 <Form
@@ -137,7 +157,7 @@ function Dashbroad() {
                             </NavLink>
                         )
                     })}
-                <Tabs items={item} className="mt-4 px-3" />
+                <Tabs items={item}  className="mt-4 px-3 max-h-[50dvh] overflow-hidden" />
             </div>
         </>
     )

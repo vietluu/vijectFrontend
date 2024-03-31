@@ -1,5 +1,7 @@
+import { SingleTask } from "./task"
+
 export type user = {
-    _id: readonly string
+    _id: string
     fullName: string
     email: string
     image: string
@@ -16,4 +18,11 @@ export type userRegister = {
 export type pswUpdate = {
     oldPassword: string
     newPassword: string
+}
+
+export type userTask = {
+    created: SingleTask[]
+    assigned: SingleTask[]
+    completed: SingleTask[]
+    doing: SingleTask[]
 }

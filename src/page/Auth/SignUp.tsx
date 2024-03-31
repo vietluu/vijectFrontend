@@ -40,7 +40,7 @@ function SignUp() {
                     className="h-28 mx-auto"
                 />
                 <h3 className="text-2xl text-center mb-2 font-medium">
-                    Đăng nhập
+                    Đăng ký tài khoản
                 </h3>
                 <Form.Item
                     label="Email"
@@ -52,7 +52,7 @@ function SignUp() {
                         },
                     ]}
                 >
-                    <Input />
+                    <Input placeholder='Email'/>
                 </Form.Item>
 
                 <Form.Item
@@ -67,7 +67,7 @@ function SignUp() {
                         },
                     ]}
                 >
-                    <Input.Password />
+                    <Input.Password placeholder='Mật khẩu'/>
                 </Form.Item>
                 <Form.Item name="fullName" label="Họ và tên">
                     <Input placeholder="Họ và tên" />

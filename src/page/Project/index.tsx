@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { Layout, Button, Spin, message } from 'antd'
 import { getProjectByIdRequest } from '../../redux/project/thunk'
@@ -7,6 +7,8 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { projectSelector } from '../../redux/project/selector'
 import ProjectSidebar from './ProjectSidebar'
 import { resetProject } from '../../redux/project/slice'
+import { getLabelRequest } from '../../redux/label/thunk'
+import { getTasks } from '../../redux/task/thunk'
 import { routes } from '../../navigation/routers'
 
 const { Sider, Content } = Layout
@@ -16,21 +18,37 @@ const ProjectDetail = () => {
 
     const { projectId } = useParams<{ projectId: string }>()
     const { projectSelected } = useAppSelector(projectSelector)
-    const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    useLayoutEffect(() => {
+    const dispatch = useAppDispatch()
+
+
+
+    useEffect(() => {
         if (projectId)
-            dispatch(getProjectByIdRequest(projectId)).then(res => {
-                console.log(res)
-                if (res.type === 'project/thunk/getProjectById/rejected') {
-                    message.error('Dự án không tồn tại!')
-                    navigate(routes.Home.path);
-                }
-        })  
+            try {
+                Promise.all([
+                    dispatch(getProjectByIdRequest(projectId)).then(res => {
+                        if (res.type === 'project/thunk/getProjectById/rejected') {
+                            message.error('Dự án không tồn tại!')
+                            navigate(routes.Home.path);
+                        }
+                    }),
+                    Promise.all([
+                        dispatch(getLabelRequest(projectId)),
+                        dispatch(getTasks({ projectId, params: { } }))
+                    ])
+
+                ])
+
+            } catch (error) {
+                console.log(error)
+            }
+
         return () => {
             dispatch(resetProject())
         }
-    }, [dispatch, projectId])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [projectId])
     return (
         <>
             {projectSelected ? (
@@ -42,8 +60,6 @@ const ProjectDetail = () => {
                         collapsible
                         collapsed={collapsed}
                     >
-                        <div className="demo-logo-vertical" />
-
                         <ProjectSidebar />
 
                         <Button
@@ -65,7 +81,7 @@ const ProjectDetail = () => {
                         />
                     </Sider>
                     <Layout>
-                        <Content className="p-1 m-3 bg-gray-200 overflow-x-hidden overflow-y-auto">
+                        <Content className="p-1 m-3 bg-gray-100 overflow-x-hidden overflow-y-auto">
                             <Outlet />
                         </Content>
                     </Layout>

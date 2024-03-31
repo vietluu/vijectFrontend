@@ -21,7 +21,7 @@ export const UpdateProfile: React.FC<Props> = ({ isOpen, setOpen, user }) => {
         if (isOpen === true) {
             setIsModalOpen(true)
         }
-        ;(async () => {
+        (async () => {
             await formRef.current
             if (formRef.current) {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

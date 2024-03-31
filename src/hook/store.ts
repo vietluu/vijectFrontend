@@ -2,12 +2,18 @@ import { configureStore } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 import userReducer from '../redux/user/slice'
 import projectReducer from '../redux/project/slice'
+import labelReducer from '../redux/label/slice'
+import taskReducer from '../redux/task/slice'
+import commentReducer from '../redux/comment/slide'
 // ...
 
 export const store = configureStore({
     reducer: {
         userReducer,
         projectReducer,
+        labelReducer,
+        taskReducer,
+        commentReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

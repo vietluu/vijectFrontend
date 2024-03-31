@@ -32,3 +32,35 @@
     padding-top: 8px;
     padding-bottom: 8px;
 }
+.ant-input-search .ant-input{
+    padding-top: 5px;
+    outline: none;
+    padding-bottom: 5px;
+    border-radius: 8px 0 0 8px !important;
+}
+:where(.css-dev-only-do-not-override-1xg9z9n).ant-select-single{
+    height: auto !important;
+}
+.ant-tabs-content-holder{
+    height: 100% !important;
+    overflow-y: auto !important;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #979797;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #a7a6a6;
+  }

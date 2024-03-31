@@ -1,7 +1,7 @@
 import { user } from './user'
 
 export type Project = {
-    _id: readonly string
+    _id:  string
     projectName: string
     description: string
     createdAt: string

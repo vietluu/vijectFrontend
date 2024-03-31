@@ -15,11 +15,16 @@ import {
 } from '../../redux/project/thunk'
 import { useParams } from 'react-router-dom'
 import { DeleteOutlined } from '@ant-design/icons'
+import ConfirmModal from '../../component/ConfirmModal'
+import { getTasks } from '../../redux/task/thunk'
 
 type Res = {
     status: number
     data: user[]
 }
+
+
+
 const Member = () => {
     const { projectSelected, loading } = useAppSelector(projectSelector)
     const { userInfo } = useAppSelector(userSelector)
@@ -68,6 +73,7 @@ const Member = () => {
                 if (res.type === 'project/thunk/removeMember/fulfilled') {
                     message.success('Xóa thành viên thành công')
                     dispatch(getProjectByIdRequest(projectId))
+                    dispatch(getTasks({ projectId, params: {} }))
                 }
             })
         }
@@ -186,8 +192,13 @@ const Member = () => {
                                     </span>
                                     {member?._id !== userInfo?._id ? (
                                         <span
-                                            onClick={() =>
-                                                handleRemoveMember(member.email)
+                                            onClick={() =>  ConfirmModal({
+                                                    title: 'Xóa thành viên',
+                                                    content: `Bạn có chắc chắn muốn xóa ${member.email} khỏi dự án?`,
+                                                    onOk: () => handleRemoveMember(member.email)
+                                                
+                                               })
+                                                 
                                             }
                                             className="text-red-500"
                                         >

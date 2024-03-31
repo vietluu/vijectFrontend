@@ -1,12 +1,13 @@
 import React, { Suspense, memo, useCallback, useEffect } from 'react'
-import { values } from 'lodash'
+import { omit, values } from 'lodash'
 import {
     BrowserRouter,
     Routes,
     Route,
     Navigate,
     useLocation,
-    matchRoutes,
+    generatePath,
+    useParams,
 } from 'react-router-dom'
 import { useAppSelector } from '../hook/hook'
 import { userSelector } from '../redux/user/selector'
@@ -49,31 +50,31 @@ export const Navigations = () => {
                         index={false}
                     >
                         {
-                            // eslint-disable-next-line @typescript-eslint/no-unused-vars
                             children &&
-                                children.length > 0 &&
-                                children?.map(
-                                    ({ element, children, ...props }) => (
-                                        <Route
-                                            key={props.id}
-                                            {...props}
-                                            element={
-                                                <GuardRouteChildren
-                                                    isLogin={isLogin}
-                                                    userInfo={userInfo}
-                                                    isPrivate={!!isPrivate}
-                                                    redirectPath={
-                                                        isPrivate
-                                                            ? routes.Login.path
-                                                            : '/'
-                                                    }
-                                                >
-                                                    {element}
-                                                </GuardRouteChildren>
-                                            }
-                                        />
-                                    )
+                            children.length > 0 &&
+                            children?.map(
+
+                                ({ element, ...props }) => (
+                                    <Route
+                                        key={props.id}
+                                        {...omit(props, 'children')}
+                                        element={
+                                            <GuardRouteChildren
+                                                isLogin={isLogin}
+                                                userInfo={userInfo}
+                                                isPrivate={!!isPrivate}
+                                                redirectPath={
+                                                    isPrivate
+                                                        ? routes.Login.path
+                                                        : '/'
+                                                }
+                                            >
+                                                {element}
+                                            </GuardRouteChildren>
+                                        }
+                                    />
                                 )
+                            )
                         }
                     </Route>
                 )
@@ -153,26 +154,22 @@ const GuardRouteChildren = memo(
         redirectPath,
     }: GuardRouteProps) => {
         const { projectSelected } = useAppSelector(projectSelector)
+        const { taskId } = useParams()
         const location = useLocation()
+        console.log(location.state)
         if (isPrivate && isLogin) {
             if (!userInfo) return null
-            if (projectSelected) {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                //@ts-ignore
-                if (matchRoutes([routes.ProjectDetail], location)) {
-                    if (projectSelected?.creator_id !== userInfo._id) {
-                        return (
-                            <Navigate
-                                to={`/${projectSelected?._id}`}
-                                state={{
-                                    from: location.pathname,
-                                    search: location.search,
-                                }}
-                                replace
-                            />
-                        )
-                    }
-                }
+            if (
+                projectSelected && projectSelected.creator_id !== userInfo._id &&
+                location.pathname.replace('/', '') !== generatePath(routes.ProjectDetail.path, { projectId: projectSelected._id }) &&
+                !taskId
+            ) {
+                return (
+                    <Navigate
+                        to={redirectPath}
+                        replace
+                    />
+                )
             }
             return (
                 <>

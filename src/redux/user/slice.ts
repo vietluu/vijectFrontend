@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import * as type from '../../types/user'
-import { getUserInfo, login, updateProfile } from './thunk'
+import { getAllTasks, getUserInfo, login, updateProfile } from './thunk'
 import { register } from './thunk'
 export interface user {
     loading: {
@@ -11,12 +11,14 @@ export interface user {
     error: {
         [key: string]: string
     }
+    userTask?: type.userTask | null
 }
 const initialState: user = {
     loading: {},
     isLogin: !!localStorage.getItem('token'),
     userInfo: undefined,
     error: {},
+    userTask: null,
 }
 const userSlice = createSlice({
     name: 'user',
@@ -74,6 +76,20 @@ const userSlice = createSlice({
         builder.addCase(updateProfile.rejected, (state, action) => {
             state.loading[updateProfile.typePrefix] = false
             state.error[updateProfile.typePrefix] =
+                action.error.message || 'error'
+        })
+        builder.addCase(getAllTasks.pending, (state) => {
+            state.loading[getAllTasks.typePrefix] = true
+        }
+        )
+        builder.addCase(getAllTasks.fulfilled, (state, action) => {
+            state.loading[getAllTasks.typePrefix] = false
+            console.log(action.payload)
+            state.userTask = action.payload
+        })
+        builder.addCase(getAllTasks.rejected, (state, action) => {
+            state.loading[getAllTasks.typePrefix] = false
+            state.error[getAllTasks.typePrefix] =
                 action.error.message || 'error'
         })
         

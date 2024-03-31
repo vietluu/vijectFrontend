@@ -66,4 +66,17 @@ export const changePassword = createAsyncThunk<
                 return rejectWithValue(error)
             }
         }
-    )
+)
+    
+export const getAllTasks = createAsyncThunk<type.userTask, undefined, ThunkAPI>(
+    'user/thunk/getAllTasks',
+    async (_, { rejectWithValue }) => {
+        try {
+            const { data } = await service.getAllTasks()
+            return data
+        } catch (error) {
+            return rejectWithValue(error)
+        }
+    }
+)
+

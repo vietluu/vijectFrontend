@@ -64,7 +64,7 @@ function SignIn() {
                         },
                     ]}
                 >
-                    <Input />
+                    <Input placeholder='Email'/>
                 </Form.Item>
 
                 <Form.Item
@@ -79,7 +79,7 @@ function SignIn() {
                         },
                     ]}
                 >
-                    <Input.Password />
+                    <Input.Password placeholder='Mật khẩu' />
                 </Form.Item>
 
                 <Form.Item className="text-center">

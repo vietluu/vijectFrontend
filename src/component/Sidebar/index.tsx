@@ -5,6 +5,7 @@ import type { MenuProps } from 'antd/lib/menu'
 import { DownOutlined } from '@ant-design/icons'
 import { useAppDispatch, useAppSelector } from '../../hook/hook'
 import { signOut } from '../../redux/user/slice'
+import ConfirmModal from '../ConfirmModal'
 
 function Sidebar({ children }: { children: React.ReactNode }) {
     const { userInfo } = useAppSelector((state) => state.userReducer)
@@ -21,12 +22,16 @@ function Sidebar({ children }: { children: React.ReactNode }) {
         {
             key: '2',
             label: (
-                <NavLink to="" onClick={() => dispatch(signOut())}>
+                <NavLink to="" onClick={() => ConfirmModal({
+                    title: 'Đăng xuất',
+                    content: 'Bạn có chắc chắn muốn đăng xuất?',
+                    onOk: () => { dispatch(signOut()) }
+                }) }>
                     Đăng xuất
                 </NavLink>
             ),
         },
-    ]
+    ] 
     return (
         <>
             <header className="sticky top-0 z-50">

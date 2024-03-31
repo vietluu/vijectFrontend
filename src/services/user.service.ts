@@ -59,3 +59,11 @@ export const changePassword = (data: type.pswUpdate): AxiosPromise<type.user> =>
     }
     return instance(request)
 }
+
+export const getAllTasks = (): AxiosPromise<type.userTask> => {
+    const request: AxiosRequestConfig = {
+        method: 'get',
+        url: '/auth/user/task',
+    }
+    return instance(request)
+}

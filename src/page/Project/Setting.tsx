@@ -11,6 +11,7 @@ import {
 } from '../../redux/project/thunk'
 import { useNavigate, useParams } from 'react-router-dom'
 import { routes } from '../../navigation/routers'
+import ConfirmModal from '../../component/ConfirmModal'
 
 const Setting = () => {
     const [form] = Form.useForm()
@@ -26,7 +27,6 @@ const Setting = () => {
         projectName: string
         description: string
     }) => {
-        console.log(data)
         const req = {
             id: projectId,
             data: {
@@ -48,7 +48,6 @@ const Setting = () => {
     }
 
     const handleDeleteProject = () => {
-        console.log(projectId)
         if (projectId) {
             dispatch(deleteProjectRequest(projectId)).then((res) => {
                 if (res.type === 'project/thunk/deleteProject/fulfilled') {
@@ -87,7 +86,7 @@ const Setting = () => {
                     >
                         <div className="flex gap-3 items-center">
                             <Form.Item
-                                label="Tên dự án"
+                                label={<span className='text-xl'>Tên dự án</span>}
                                 rules={[
                                     {
                                         required: true,
@@ -119,7 +118,11 @@ const Setting = () => {
                                         loading[updateProjectRequest.typePrefix]
                                     }
                                     danger
-                                    htmlType="submit"
+                                    onClick={() => ConfirmModal({
+                                        title: 'Lưu thay đổi?',
+                                        content: 'Bạn có chắc chắn muốn lưu thay đổi?',
+                                        onOk: () => form.submit()
+                                    })}
                                     className="mt-2"
                                 >
                                     Lưu
@@ -146,7 +149,7 @@ const Setting = () => {
                     >
                         <div className="flex gap-3 items-center">
                             <Form.Item
-                                label="Thông tin dự án"
+                                label={<span className='text-xl'>Thông tin dự án</span>}
                                 rules={[
                                     {
                                         required: true,
@@ -181,7 +184,11 @@ const Setting = () => {
                                         loading[updateProjectRequest.typePrefix]
                                     }
                                     danger
-                                    htmlType="submit"
+                                    onClick={() => ConfirmModal({
+                                        title: 'Lưu thay đổi?',
+                                        content: 'Bạn có chắc chắn muốn lưu thay đổi?',
+                                        onOk: () => form.submit()
+                                    })}
                                     className="mt-2"
                                 >
                                     Lưu
@@ -244,7 +251,12 @@ const Setting = () => {
                                 type="default"
                                 loading={loading[updateOwner.typePrefix]}
                                 danger
-                                htmlType="submit"
+                                onClick={() => ConfirmModal({
+                                    title: 'Thay đổi trưởng nhóm',
+                                    content: 'Bạn có chắc chắn muốn thay đổi trưởng nhóm?',
+                                    onOk: () => form.submit()
+                                
+                                })}
                             >
                                 Lưu
                             </Button>
@@ -261,7 +273,11 @@ const Setting = () => {
                 <p>
                     <Button
                         loading={loading[deleteProjectRequest.typePrefix]}
-                        onClick={handleDeleteProject}
+                        onClick={() => ConfirmModal({
+                            title: 'Xóa dự án',
+                            content: 'Bạn có chắc chắn muốn xóa dự án?',
+                            onOk: () => handleDeleteProject()
+                        })}
                         danger
                     >
                         Xóa dự án
