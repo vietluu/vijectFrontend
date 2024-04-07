@@ -61,4 +61,36 @@ export const deleteTask = (taskId: string, projectId: string): AxiosPromise<Type
     }
     return instance(config)
 }
+export const createSubTask = (projectId: string, data: { name: string }): AxiosPromise<Types.Subtask> => { 
+    const config: AxiosRequestConfig = {
+        method: 'POST',
+        url: `/subtask/${projectId}/create`,
+        data,
+    }
+    return instance(config)
+}
+export const getTasksById = (taskId: string, projectId: string): AxiosPromise<Types.SingleTask> => { 
+    const config: AxiosRequestConfig = {
+        method: 'GET',
+        url: `/task/${projectId}/${taskId}`,
+    }
+    return instance(config)
+}
+
+export const updateSubTask = (subTaskId: string, projectId: string, data: { name: string, status: boolean }): AxiosPromise<Types.Subtask> => { 
+    const config: AxiosRequestConfig = {
+        method: 'PATCH',
+        url: `/subtask/${projectId}/${subTaskId}`,
+        data,
+    }
+    return instance(config)
+}
+
+export const deleteSubTask = (subTaskId: string, projectId: string): AxiosPromise<Types.Subtask> => {
+    const config: AxiosRequestConfig = {
+        method: 'DELETE',
+        url: `/subtask/${projectId}/${subTaskId}`,
+    }
+    return instance(config)
+}
     

@@ -5,8 +5,7 @@ import { TaskReducer } from '../../../redux/task/selector'
 import { projectSelector } from '../../../redux/project/selector'
 import { labelReducer } from '../../../redux/label/selector'
 import { userSelector } from '../../../redux/user/selector'
-import { updateTask } from '../../../redux/task/thunk'
-import { setTaskSelected } from '../../../redux/task/slice'
+import { getTaskById, updateTask } from '../../../redux/task/thunk'
 import { memo } from 'react'
 import { NavLink } from 'react-router-dom'
 
@@ -30,7 +29,7 @@ const SingleTask = ({ data }: { data: SingleTask }) => {
     }
     return (
         <div className='flex flex-row justify-between items-center p-3 bg-white shadow-md cursor-pointer m-1'
-        onClick={()=> dispatch(setTaskSelected(data))}
+        onClick={()=> dispatch(getTaskById({taskId: data._id, projectId: projectSelected?._id ?? ''}))}
         >
             <NavLink to={data._id} onClick={(e) => e.stopPropagation()} className='max-w-[50%] w-full'> {data.taskName}</NavLink>
             <Select

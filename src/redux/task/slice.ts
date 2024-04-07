@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import * as Types from '../../types/task'
-import { getPriorities, getStatuses, createTask, getTasks, updateTask, deleteTask } from './thunk'
+import { getPriorities, getStatuses, createTask, getTasks, updateTask, deleteTask, createSubTask, getTaskById, updateSubTask, deleteSubTask } from './thunk'
 
 type InitialState = {
     priorities: Types.Priority[] | null
@@ -27,9 +27,6 @@ const initialState: InitialState = {
 const taskSlice = createSlice({
     initialState,
     reducers: {
-        setTaskSelected: (state, action) => { 
-            state.taskSelected = action.payload
-        },
         resetTaskSelected: (state) => {
             state.taskSelected = undefined
         }   
@@ -125,8 +122,73 @@ const taskSlice = createSlice({
             state.loading[deleteTask.typePrefix] = false
             state.error[deleteTask.typePrefix] = action.error.message || 'error'
         })
+        builder.addCase(createSubTask.pending, (state) => {
+            state.loading[createSubTask.typePrefix] = true
+        })
+        builder.addCase(createSubTask.fulfilled, (state, action) => {
+            state.loading[createSubTask.typePrefix] = false
+            if (state.taskSelected) {
+                if (state.taskSelected.subTasks?.length) {
+                    state.taskSelected.subTasks.push(action.payload)
+                }
+                else {
+                    state.taskSelected.subTasks = [action.payload]
+                }
+            }
+        })
+        builder.addCase(createSubTask.rejected, (state, action) => {
+            state.loading[createSubTask.typePrefix] = false
+            state.error[createSubTask.typePrefix] = action.error.message || 'error'
+        });
+        builder.addCase(getTaskById.pending, (state) => {
+            state.loading[getTaskById.typePrefix] = true
+        }
+        )
+        builder.addCase(getTaskById.fulfilled, (state, action) => {
+            state.loading[getTaskById.typePrefix] = false
+            state.taskSelected = action.payload
+        })
+        builder.addCase(getTaskById.rejected, (state, action) => {
+            state.loading[getTaskById.typePrefix] = false
+            state.error[getTaskById.typePrefix] = action.error.message || 'error'
+        })
+        builder.addCase(updateSubTask.pending, (state) => {
+            state.loading[updateSubTask.typePrefix] = true
+        }
+        )
+        builder.addCase(updateSubTask.fulfilled, (state, action) => {
+            state.loading[updateSubTask.typePrefix] = false
+            if (state.taskSelected?.subTasks) {
+                state.taskSelected.subTasks = state.taskSelected.subTasks.map((item) => {
+                    if (item._id === action.payload._id) {
+                        return action.payload
+                    }
+                    return item
+                })
+            }
+        })
+        builder.addCase(updateSubTask.rejected, (state, action) => {
+            state.loading[updateSubTask.typePrefix] = false
+            state.error[updateSubTask.typePrefix] = action.error.message || 'error'
+        })
+        builder.addCase(deleteSubTask.pending, (state) => {
+            state.loading[deleteSubTask.typePrefix] = true
+        }
+        )
+        builder.addCase(deleteSubTask.fulfilled, (state, action) => {
+            state.loading[deleteSubTask.typePrefix] = false
+            if (state.taskSelected?.subTasks) {
+                state.taskSelected.subTasks = state.taskSelected.subTasks.filter(
+                    (item) => item._id !== action.payload._id
+                )
+            }
+        })
+        builder.addCase(deleteSubTask.rejected, (state, action) => {
+            state.loading[deleteSubTask.typePrefix] = false
+            state.error[deleteSubTask.typePrefix] = action.error.message || 'error'
+        })
     },
 })
 
-export const {setTaskSelected, resetTaskSelected} = taskSlice.actions
+export const {resetTaskSelected} = taskSlice.actions
 export default taskSlice.reducer

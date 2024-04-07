@@ -64,3 +64,43 @@ export const deleteTask = createAsyncThunk<Types.SingleTask, { taskId: string, p
     }
 });
 
+export const createSubTask = createAsyncThunk<Types.Subtask, { projectId: string, data: { name: string } }, ThunkAPI>('task/createSubTask', async (req, { rejectWithValue }) => {
+    try {
+        const response = await Service.createSubTask(req.projectId, req.data);
+        return response.data;
+    }
+    catch (error) {
+        return rejectWithValue(error);
+    }
+})
+
+export const getTaskById = createAsyncThunk<Types.SingleTask, { taskId: string, projectId: string }, ThunkAPI>('task/getTaskById', async (req, { rejectWithValue }) => {
+    try {
+        const response = await Service.getTasksById(req.taskId, req.projectId);
+        return response.data;
+    }
+    catch (error) {
+        return rejectWithValue(error);
+    }
+})
+export const updateSubTask = createAsyncThunk<Types.Subtask, { subTaskId: string, projectId: string, data: { name: string, status: boolean } }, ThunkAPI>('task/updateSubTask', async (req, { rejectWithValue }) => {
+    try {
+        const response = await Service.updateSubTask(req.subTaskId, req.projectId, req.data);
+        return response.data;
+    }
+    catch (error) {
+        return rejectWithValue(error);
+    }
+}
+)
+
+export const deleteSubTask = createAsyncThunk<Types.Subtask, { subTaskId: string, projectId: string }, ThunkAPI>('task/deleteSubTask', async (req, { rejectWithValue }) => {
+    try {
+        const response = await Service.deleteSubTask(req.subTaskId, req.projectId);
+        return response.data;
+    }
+    catch (error) {
+        return rejectWithValue(error);
+    }
+})
+

@@ -25,4 +25,5 @@ export type userTask = {
     assigned: SingleTask[]
     completed: SingleTask[]
     doing: SingleTask[]
+    done: SingleTask[]
 }

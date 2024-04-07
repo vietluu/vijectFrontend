@@ -16,6 +16,7 @@ export type SingleTask = {
     priorityId: Priority | null
     labelId: Tag | null
     statusId: Status | null
+    subTasks: Subtask[] | null
     projectId: Partial<Project>
     creator: Partial<user>
     createdAt: string
@@ -43,4 +44,12 @@ export type CreateTask = {
     projectId: string | null 
     assignedTo?: string | null
     creatorId: string
+}
+export type Subtask = {
+    _id: string
+    name: string
+    status: boolean
+    taskId: string
+    createdAt: string
+    updatedAt: string
 }

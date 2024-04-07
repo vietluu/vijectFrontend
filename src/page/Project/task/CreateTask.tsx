@@ -1,4 +1,4 @@
-import { Avatar, Button, Form, Input, Modal, Select, Tag, message } from 'antd'
+import { Avatar, Button, DatePicker, Form, Input, Modal, Select, Tag, message } from 'antd'
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../../hook/hook'
 import { TaskReducer } from '../../../redux/task/selector'
@@ -85,6 +85,7 @@ const CreateTask = ({ projectId }: { projectId: string }) => {
                     >
                         <Input placeholder='Mô tả' />
                     </Form.Item>
+                    <div className='flex gap-3 items-center'>
                     <Form.Item
                         name="priorityId"
                         label="Độ ưu tiên"
@@ -107,7 +108,14 @@ const CreateTask = ({ projectId }: { projectId: string }) => {
                                 </Select.Option>
                             ))}
                         </Select>
-                    </Form.Item>
+                        </Form.Item>
+                        <Form.Item
+                            label="Ngày hoàn thành"
+                            name={'date_end'}
+                        >
+                            <DatePicker format={"DD/MM/YYYY"} placeholder='Ngày hoàn thành'/>
+                        </Form.Item>
+                    </div>
                     <Form.Item
                         name="statusId"
                         label="Trạng thái"
