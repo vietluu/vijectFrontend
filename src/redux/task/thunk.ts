@@ -3,7 +3,7 @@ import { ThunkAPI } from '../../hook/store'
 import * as Service from '../../services/task.services'
 import * as Types from '../../types/task'
 
-export const getPriorities = createAsyncThunk<Types.Priority[],undefined, ThunkAPI>('task/getPriorities', async (req, { rejectWithValue }) => {
+export const getPriorities = createAsyncThunk<Types.Priority[],undefined, ThunkAPI>('task/getPriorities', async (_req, { rejectWithValue }) => {
     try {
         const response = await Service.getPriorities();
         return response.data;
@@ -13,7 +13,7 @@ export const getPriorities = createAsyncThunk<Types.Priority[],undefined, ThunkA
     }
 })
 
-export const getStatuses = createAsyncThunk<Types.Status[], undefined, ThunkAPI>('task/getStatuses', async (req, { rejectWithValue }) => {
+export const getStatuses = createAsyncThunk<Types.Status[], undefined, ThunkAPI>('task/getStatuses', async (_req, { rejectWithValue }) => {
     try {
         const response = await Service.getStatuses();
         return response.data;

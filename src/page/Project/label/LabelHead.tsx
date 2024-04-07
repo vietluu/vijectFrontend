@@ -1,5 +1,5 @@
 import { Button, ColorPicker, Form, Input, Modal, message } from 'antd'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../hook/hook'
 import { labelReducer } from '../../../redux/label/selector'
 import { createLabelRequest } from '../../../redux/label/thunk'

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import  { useMemo } from 'react'
 import { projectSelector } from '../../redux/project/selector'
 import { useAppSelector } from '../../hook/hook'
 import { Menu } from 'antd'

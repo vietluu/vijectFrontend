@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useAppSelector } from '../../hook/hook'
 import { userSelector } from '../../redux/user/selector'
 import { CameraFilled } from '@ant-design/icons'

@@ -1,4 +1,3 @@
-import React from 'react'
 import { SingleTask } from '../../types/task'
 import { NavLink } from 'react-router-dom'
 
