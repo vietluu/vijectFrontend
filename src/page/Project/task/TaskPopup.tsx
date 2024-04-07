@@ -19,7 +19,7 @@ const TaskPopup = () => {
     const { userInfo } = useAppSelector(userSelector)
     const { label } = useAppSelector(labelReducer)
     const [form] = Form.useForm()
-
+    
     useEffect(() => {
         if (taskSelected?.taskName) {
             form.setFieldsValue({
@@ -76,6 +76,7 @@ const TaskPopup = () => {
             if (res.type === 'task/createSubTask/fulfilled') {
                 message.success('Tạo công việc thành công')
                 setOpen(false)
+                form.resetFields(['name'])
             }
             else {
                 if (res.type === 'task/createSubTask/rejected')
@@ -282,7 +283,8 @@ const TaskPopup = () => {
                
 
                     </Form>
-                    <Form
+                        <Form
+                            form={form}
                         onFinish={({ name }) => handleCreateSubTask(name)}
                     >
                     <div className='flex items-center justify-between'>

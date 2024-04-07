@@ -57,7 +57,7 @@ const CreateTask = ({ projectId }: { projectId: string }) => {
                         <Input placeholder='Công việc' />
 
                     </Form.Item>
-                   {label?.length && userInfo?._id === projectSelected?.creator_id &&  <Form.Item
+                   {label?.length && userInfo?._id === projectSelected?.creator_id ?  <Form.Item
                         name="labelId"
                         label="Nhãn"
                     >
@@ -78,7 +78,7 @@ const CreateTask = ({ projectId }: { projectId: string }) => {
                                 </Select.Option>
                             ))}
                         </Select>
-                    </Form.Item>}
+                    </Form.Item> : null}
                     <Form.Item
                         name="description"
                         label="Mô tả"
