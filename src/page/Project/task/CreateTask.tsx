@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../hook/hook'
 import { TaskReducer } from '../../../redux/task/selector'
 import { projectSelector } from '../../../redux/project/selector'
 import { userSelector } from '../../../redux/user/selector'
-import { CreateTask } from '../../../types/task'
+import * as type from '../../../types/task'
 import { createTask, getTasks } from '../../../redux/task/thunk'
 import { labelReducer } from '../../../redux/label/selector'
 
@@ -17,9 +17,9 @@ const CreateTask = ({ projectId }: { projectId: string }) => {
     const [form] = Form.useForm()
     const dispatch = useAppDispatch()
 
-    const handleCreateTask = (data: CreateTask) => { 
+    const handleCreateTask = (data: type.CreateTask) => { 
 
-        const req:CreateTask = {
+        const req:type.CreateTask = {
             ...data,
             projectId: projectId,
             creatorId: userInfo?._id ?? '',
@@ -47,7 +47,7 @@ const CreateTask = ({ projectId }: { projectId: string }) => {
                 <Form
                     form={form}
                     layout='vertical'
-                    onFinish={(e:CreateTask) => handleCreateTask(e)}
+                    onFinish={(e:type.CreateTask) => handleCreateTask(e)}
                 >
                     <Form.Item
                         name="taskName"

@@ -1,4 +1,4 @@
-import { CreateTask, SingleTask } from '../../../types/task'
+import * as type from '../../../types/task'
 import { Avatar, Select, Tag, message } from 'antd'
 import { useAppDispatch, useAppSelector } from '../../../hook/hook'
 import { TaskReducer } from '../../../redux/task/selector'
@@ -9,14 +9,14 @@ import { getTaskById, updateTask } from '../../../redux/task/thunk'
 import { memo } from 'react'
 import { NavLink } from 'react-router-dom'
 
-const SingleTask = ({ data }: { data: SingleTask }) => {
+const SingleTask = ({ data }: { data: type.SingleTask }) => {
     const { priorities, statuses } = useAppSelector(TaskReducer)
     const { projectSelected } = useAppSelector(projectSelector)
     const { label } = useAppSelector(labelReducer);
     const { userInfo } = useAppSelector(userSelector)
     const dispatch = useAppDispatch()
 
-    const handleUpdateTask = (e: Partial<CreateTask>) => {
+    const handleUpdateTask = (e: Partial<type.CreateTask>) => {
         dispatch(updateTask({ taskId: data?._id ?? '', projectId: projectSelected?._id ?? '', data: e })).then(res => {
             if (res.type === 'task/updateTask/fulfilled') {
                 message.success('Cập nhật công việc thành công')
