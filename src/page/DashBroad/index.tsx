@@ -144,7 +144,7 @@ function Dashbroad() {
                                 <p className="text-sm py-1 flex flex-row justify-between text-gray-700">
                                     Công việc:{' '}
                                     <span className="text-gray-600 text-[10px] px-1 rounded-full bg-slate-200">
-                                        10
+                                        {item.taskCount ?? 0}
                                     </span>
                                 </p>
                                 <p className="text-sm flex flex-row justify-between text-gray-700">

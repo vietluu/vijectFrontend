@@ -8,4 +8,5 @@ export type Project = {
     updatedAt: string
     creator_id: string
     members: user[]
+    taskCount?: number
 }
