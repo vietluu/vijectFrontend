@@ -78,7 +78,7 @@ const TaskPopup = () => {
             if (res.type === 'task/createSubTask/fulfilled') {
                 message.success('Tạo công việc thành công')
                 setOpen(false)
-                form.resetFields(['name'])
+                form2.resetFields(['name'])
             }
             else {
                 if (res.type === 'task/createSubTask/rejected')
