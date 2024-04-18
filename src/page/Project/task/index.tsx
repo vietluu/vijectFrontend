@@ -29,7 +29,7 @@ const Task = () => {
             <TaskPopup/>
             <h1 className='text-3xl font-bold pb-4 border-b border-gray-400'>Công việc trong dự án</h1>
             <div className='flex  px-4 items-center justify-between'>
-            <Search placeholder="input search text" className='max-h-14 max-w-60' onSearch={handleSearch} enterButton />
+            <Search placeholder="Nhập từ khóa" className='max-h-14 max-w-60' onSearch={handleSearch} enterButton />
             <CreateTask projectId={projectId} />
            </div>
             <ul className='h-[69vh] mx-3 border bg-white border-gray-300'>

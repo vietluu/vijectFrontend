@@ -18,7 +18,6 @@ const CreateTask = ({ projectId }: { projectId: string }) => {
     const dispatch = useAppDispatch()
 
     const handleCreateTask = (data: type.CreateTask) => { 
-
         const req:type.CreateTask = {
             ...data,
             projectId: projectId,
@@ -42,7 +41,9 @@ const CreateTask = ({ projectId }: { projectId: string }) => {
         <div>
             <Modal title="Tạo công việc" centered open={openModal} onCancel={() => setOpenModal(false)}
                 okButtonProps={{className:'bg-sky-500 text-white'}}
-            onOk={() => form.submit()}
+                onOk={() => form.submit()}
+                destroyOnClose={true}
+
             >
                 <Form
                     form={form}

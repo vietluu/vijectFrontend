@@ -59,7 +59,7 @@ function SignIn() {
                     rules={[
                         {
                             type: 'email',
-                            message: 'Please enter a valid email address!',
+                            message: 'Vui lòng nhập email!',
                         },
                     ]}
                 >
@@ -74,7 +74,7 @@ function SignIn() {
                             type: 'string',
                             min: 6,
                             message:
-                                'Password must be at least 6 characters long!',
+                                'Mật khẩu phải chứa ít nhất 6 kí tự!',
                         },
                     ]}
                 >

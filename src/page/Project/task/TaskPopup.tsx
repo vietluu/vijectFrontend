@@ -18,12 +18,13 @@ const TaskPopup = () => {
     const { projectSelected } = useAppSelector(projectSelector)
     const { userInfo } = useAppSelector(userSelector)
     const { label } = useAppSelector(labelReducer)
-    const [form] = Form.useForm()
+    const [form1] = Form.useForm()
+    const [form2] = Form.useForm()
     
     
     useEffect(() => {
         if (taskSelected?.taskName) {
-            form.setFieldsValue({
+            form1.setFieldsValue({
                 taskName: taskSelected?.taskName,
                 labelId: taskSelected?.labelId?._id,
                 description: taskSelected?.description,
@@ -32,7 +33,7 @@ const TaskPopup = () => {
                 assignedTo: taskSelected?.assignedTo?._id,
             })
         }
-    }, [form, taskSelected?.assignedTo?._id, taskSelected?.description, taskSelected?.labelId?._id, taskSelected?.priorityId?._id, taskSelected?.statusId?._id, taskSelected?.taskName])
+    }, [form1, taskSelected?.assignedTo?._id, taskSelected?.description, taskSelected?.labelId?._id, taskSelected?.priorityId?._id, taskSelected?.statusId?._id, taskSelected?.taskName])
     const handleUpdateTask = (data: CreateTask) => {
 
         const req: CreateTask = {
@@ -43,13 +44,13 @@ const TaskPopup = () => {
 
         dispatch(updateTask({ taskId: taskSelected?._id ?? '', projectId: projectSelected?._id ?? '', data: req })).then((res) => {
             if (res.type === 'task/updateTask/fulfilled') {
-                message.success('Tạo công việc thành công')
+                message.success('Cập nhật công việc thành công')
                 dispatch(getTaskById({ taskId: taskSelected?._id ?? '', projectId: projectSelected?._id ?? '' }))
                 setOpen(false)
             }
             else {
                 if (res.type === 'task/updateTask/rejected')
-                    message.error('Tạo công việc thất bại')
+                    message.error('Cập nhật công việc thất bại')
             }
 
         })
@@ -113,7 +114,7 @@ const TaskPopup = () => {
                         onConfirm={() => handleDeleteTask()}>
                         <Button danger>Xóa</Button>
                     </Popconfirm>
-                    <Button loading={loading[updateTask.typePrefix]} onClick={() => form.submit()} type="primary" className='bg-sky-500 text-white'>
+                    <Button loading={loading[updateTask.typePrefix]} onClick={() => form1.submit()} type="primary" className='bg-sky-500 text-white'>
                         Lưu
                     </Button>
                 </Space>
@@ -123,8 +124,8 @@ const TaskPopup = () => {
             {taskSelected?._id ?
                 
                 <div>
-                      <Form
-                form={form}
+                <Form
+                form={form1}
                 layout='vertical'
                 onFinish={(e: CreateTask) => handleUpdateTask(e)}
             >
@@ -285,7 +286,7 @@ const TaskPopup = () => {
 
                     </Form>
                         <Form
-                            form={form}
+                            form={form2}
                         onFinish={({ name }) => handleCreateSubTask(name)}
                     >
                     <div className='flex items-center justify-between'>

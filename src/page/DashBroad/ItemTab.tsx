@@ -1,5 +1,7 @@
+import { CircularProgressbar } from 'react-circular-progressbar'
 import { SingleTask } from '../../types/task'
 import { NavLink } from 'react-router-dom'
+import 'react-circular-progressbar/dist/styles.css';
 
 const ItemTab = ({ data }: { data: SingleTask[] | undefined }) => {
   const percentTask = (item: SingleTask) => {
@@ -17,7 +19,8 @@ const ItemTab = ({ data }: { data: SingleTask[] | undefined }) => {
                         <p className='w-full text-black text-md'> {item.taskName}</p>
                         <p className='w-full  text-sm text-gray-400'> {item?.projectId.projectName}</p>
               </div>
-              <span>{ percentTask(item) + ' %'}</span>
+              <span className='block h-11 w-11'><CircularProgressbar  value={percentTask(item)} text={`${percentTask(item)}%`} />
+</span>
              </NavLink>
           )) : null}
     </div>
