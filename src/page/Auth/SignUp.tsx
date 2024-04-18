@@ -3,6 +3,7 @@ import { useAppSelector } from '../../hook/hook'
 import { Button, Form, Input, message } from 'antd'
 import { userRegister } from '../../types/user'
 import { register } from '../../redux/user/thunk'
+import { NavLink } from 'react-router-dom'
 
 function SignUp() {
     const dispatch = useDispatch()
@@ -84,13 +85,13 @@ function SignUp() {
             </Form>
             <div className="border-b border-gray-500 w-full text-center pb-5">
                 <span>Đã có tài khoản?</span>
-                <a href="/signIn" className="text-blue-500 ml-2">
+                <NavLink to="/signIn" className="text-blue-500 ml-2">
                     Đăng nhập tại đây
-                </a>
+                </NavLink>
             </div>
             <div className="text-sm flex gap-2 py-4">
-                <a href="#">Chính sách người dùng</a>
-                <a href="#">Chính sách bảo mật</a>
+            <NavLink to="/user-policy">Chính sách người dùng</NavLink>
+                <NavLink to="'/privacy-policy">Chính sách bảo mật</NavLink>
             </div>
         </div>
     )

@@ -13,6 +13,8 @@ import Setting from '../page/Project/Setting'
 import ListProject from '../page/Project/ListProject'
 import Sumary from '../page/Project/Sumary'
 import TaskDetail from '../page/Project/task/TaskDetail'
+import UserPolicy from '../page/UserPolicy'
+import PrivacyPolicy from '../page/PrivacyPolicy'
 
 type routeItem = {
     path: string
@@ -93,13 +95,25 @@ export const routes: Route = {
         id: 'updatePsw',
         element: <UpdatePsw />,
     },
+    UserPolicy: {
+        path: '/user-policy',
+        id: 'user-policy',
+        element: <UserPolicy/>,
+    },
+    PrivacyPolicy: {
+        path: '/privacy-policy',
+        id: 'Privacy-policy',
+        element: <PrivacyPolicy/>,
+    },
+    
+    
 }
 
 export type Routes = typeof routes
 
 export type RouteKeys = keyof Routes
 
-const publicKeys: RouteKeys[] = ['Login', 'Logup']
+const publicKeys: RouteKeys[] = ['Login', 'Logup', 'UserPolicy', 'PrivacyPolicy']
 
 export const publicRoutes = pick<Routes, RouteKeys>(routes, publicKeys)
 

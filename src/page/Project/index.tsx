@@ -54,7 +54,7 @@ const ProjectDetail = () => {
             {projectSelected ? (
                 <Layout className="h-full">
                     <Sider
-                        className="relative"
+                        className="relative !min-w-[250px] !max-w-[300px]"
                         theme="light"
                         trigger={null}
                         collapsible

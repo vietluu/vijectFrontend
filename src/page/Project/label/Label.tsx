@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useState } from 'react';
 import { Form, Input, Popconfirm, Table, Tag, Typography, message } from 'antd';
@@ -141,9 +142,9 @@ const Label = () => {
                 return editable ? (
                     <span>
                         <Typography.Link onClick={() => save(record._id)} style={{ marginRight: 8 }}>
-                            Hủy
+                            Lưu
                         </Typography.Link>
-                        <Popconfirm okButtonProps={{className:'bg-sky-500'}} title="Có chắc xóa?" onConfirm={cancel}>
+                        <Popconfirm okButtonProps={{className:'bg-sky-500'}} title="Có chắc hủy?" onConfirm={cancel}>
                             <a>Hủy</a>
                         </Popconfirm>
                     </span>

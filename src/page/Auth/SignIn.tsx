@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useAppSelector } from '../../hook/hook'
 import { login } from '../../redux/user/thunk'
 import { userLogin } from '../../types/user'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 
 function SignIn() {
     const navigate = useNavigate()
@@ -93,13 +93,13 @@ function SignIn() {
                 </Form.Item>
             </Form>
             <div className="border-b border-gray-500 w-full text-center pb-5">
-                <a href="/signUp" className="text-blue-500">
+                <NavLink to="/signUp" className="text-blue-500">
                     Đăng kí tài khoản
-                </a>
+                </NavLink>
             </div>
             <div className="text-sm flex gap-2 py-4">
-                <a href="#">Chính sách người dùng</a>
-                <a href="#">Chính sách bảo mật</a>
+                <NavLink to="/user-policy">Chính sách người dùng</NavLink>
+                <NavLink to="/privacy-policy">Chính sách bảo mật</NavLink>
             </div>
         </div>
     )

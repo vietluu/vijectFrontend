@@ -32,7 +32,7 @@ const Task = () => {
             <Search placeholder="Nhập từ khóa" className='max-h-14 max-w-60' onSearch={handleSearch} enterButton />
             <CreateTask projectId={projectId} />
            </div>
-            <ul className='h-[69vh] mx-3 border bg-white border-gray-300'>
+            <ul className='h-[69vh] mx-3 border bg-white border-gray-300 p-4'>
             {
                 Task?.tasks?.length ? Task.tasks.map((item) => {
                     return <SingleTask key={item._id} data={item} />
